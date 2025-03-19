@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Love ❤</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: pink;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 50px;
+            background: url('gf-photo.jpg') no-repeat center center/cover;
+        }
+        h1 {
+            color: red;
+            font-size: 40px;
+        }
+        #hiddenMessage {
+            display: none;
+            font-size: 30px;
+            color: white;
+            background: red;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .heart {
+            font-size: 80px;
+            color: red;
+            animation: heartbeat 1.5s infinite;
+        }
+        button {
+            background: red;
+            color: white;
+            font-size: 20px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.5s;
+        }
+        button:hover {
+            box-shadow: 0 0 20px yellow;
+            transform: scale(1.1);
+        }
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        @keyframes fall {
+            0% { transform: translateY(-10vh); opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+        .falling-heart {
+            position: fixed;
+            top: -10vh;
+            font-size: 30px;
+            color: red;
+            animation: fall 5s linear infinite;
+        }
+        .firework {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: yellow;
+            border-radius: 50%;
+            opacity: 0;
+            animation: explode 1s ease-out;
+        }
+        @keyframes explode {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(5); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>Hey Pupiii! I have a surprise for you ❤</h1>
+    <div class="heart">❤</div>
+    <button onclick="showMessage()">Click Here</button>
+    <div id="hiddenMessage"></div>
+
+    <audio id="loveMusic" loop>
+        <source src="romantic-song.mp3" type="audio/mp3">
+    </audio>
+
+    <script>
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("falling-heart");
+            heart.innerText = "❤";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+            document.body.appendChild(heart);
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+        setInterval(createHeart, 300);
+
+        function createFirework(x, y) {
+            const firework = document.createElement("div");
+            firework.classList.add("firework");
+            firework.style.left = x + "px";
+            firework.style.top = y + "px";
+            document.body.appendChild(firework);
+            setTimeout(() => { firework.remove(); }, 1000);
+        }
+
+        function showMessage() {
+            let message = "I Love You Pupiii! Forever & Always ❤💖";
+            let i = 0;
+            let speed = 100; 
+            document.getElementById("hiddenMessage").innerHTML = "";
+            document.getElementById("hiddenMessage").style.display = "block";
+            
+            function type() {
+                if (i < message.length) {
+                    document.getElementById("hiddenMessage").innerHTML += message.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+
+            document.getElementById("loveMusic").play();
+            
+            for (let i = 0; i < 20; i++) {
+                createFirework(Math.random() * window.innerWidth, Math.random() * window.innerHeight);
+            }
+        }
+    </script>
+
+</body>
+</html>
